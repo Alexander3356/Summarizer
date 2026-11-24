@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ summary.title }} - SmartSummarizer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>{{ summary.title }}</h1>
+    <p class="muted">{{ summary.created_at.strftime('%d/%m/%Y %H:%M') if summary.created_at else '' }}</p>
+    <h2>Riassunto</h2>
+    <div class="text-block">{{ summary.summary_text }}</div>
+</div>
+<div class="card">
+    <h2>Testo originale</h2>
+    <div class="text-block">{{ summary.original_text }}</div>
+</div>
+<a class="button" href="{{ url_for('frontend.archive') }}">Torna all'archivio</a>
+{% endblock %}

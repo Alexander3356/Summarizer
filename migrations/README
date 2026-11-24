@@ -1,0 +1,1 @@
+Run flask --app app.py db upgrade to create or update the database schema.

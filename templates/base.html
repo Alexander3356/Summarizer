@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SmartSummarizer{% endblock %}</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a class="nav-brand" href="{{ url_for('frontend.home') }}">SmartSummarizer</a>
+
+        {% if current_user %}
+            <div>
+                <a href="{{ url_for('frontend.home') }}">Nuovo riassunto</a>
+                <a href="{{ url_for('frontend.archive') }}">Il mio archivio</a>
+
+                <form class="inline-form" method="POST" action="{{ url_for('frontend.logout') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit">Esci</button>
+                </form>
+            </div>
+        {% endif %}
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="message message-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer>SmartSummarizer</footer>
+</body>
+</html>

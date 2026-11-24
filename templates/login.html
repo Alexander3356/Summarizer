@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Accedi - SmartSummarizer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Accedi</h1>
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <label for="email">{{ form.email.label.text }}</label>
+        {{ form.email(autocomplete="email") }}
+        {% for error in form.email.errors %}<div class="errors">{{ error }}</div>{% endfor %}
+        <label for="password">{{ form.password.label.text }}</label>
+        {{ form.password(autocomplete="current-password") }}
+        {% for error in form.password.errors %}<div class="errors">{{ error }}</div>{% endfor %}
+        {{ form.submit(class="button") }}
+    </form>
+    <p>Non hai un account? <a href="{{ url_for('frontend.register') }}">Registrati</a>.</p>
+</div>
+{% endblock %}

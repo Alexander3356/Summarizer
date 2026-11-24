@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Nuovo riassunto - SmartSummarizer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Genera un riassunto</h1>
+    <p class="muted">Inserisci un testo in italiano o in inglese. Il sistema seleziona le frasi più rappresentative e salva il risultato nel tuo archivio. (potrebbe volerci un po' di tempo per i testi più lunghi)</p>
+    {% if current_user %}
+        <form method="POST" action="{{ url_for('frontend.summarize') }}">
+            {{ form.hidden_tag() }}
+            <label for="title">{{ form.title.label.text }}</label>
+            {{ form.title(placeholder="Titolo del testo") }}
+            {% for error in form.title.errors %}<div class="errors">{{ error }}</div>{% endfor %}
+            <label for="original_text">{{ form.original_text.label.text }}</label>
+            {{ form.original_text(placeholder="Incolla qui il testo da riassumere...") }}
+            {% for error in form.original_text.errors %}<div class="errors">{{ error }}</div>{% endfor %}
+            {{ form.submit(class="button") }}
+        </form>
+    {% else %}
+        <p>Accedi o crea un account per generare e conservare i tuoi riassunti.</p>
+        <a class="button" href="{{ url_for('frontend.login') }}">Accedi</a>
+        <a class="button" href="{{ url_for('frontend.register') }}">Registrati</a>
+    {% endif %}
+</div>
+{% endblock %}

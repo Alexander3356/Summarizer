@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Il mio archivio - SmartSummarizer{% endblock %}
+
+{% block content %}
+<h1>Il mio archivio</h1>
+{% if summaries %}
+    {% for summary in summaries %}
+        <div class="card">
+            <h2><a href="{{ url_for('frontend.summary_detail', summary_id=summary.id) }}">{{ summary.title }}</a></h2>
+            <p class="muted">{{ summary.created_at.strftime('%d/%m/%Y %H:%M') if summary.created_at else '' }}</p>
+            <div class="summary-preview">{{ summary.summary_text }}</div>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <p>Non hai ancora salvato riassunti.</p>
+        <a class="button" href="{{ url_for('frontend.home') }}">Crea un riassunto</a>
+    </div>
+{% endif %}
+{% endblock %}
